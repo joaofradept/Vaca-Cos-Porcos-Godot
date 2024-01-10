@@ -1,0 +1,76 @@
+[gd_scene load_steps=9 format=3 uid="uid://doy66fn1hnnn5"]
+
+[ext_resource type="PackedScene" uid="uid://d3jqyr856y71q" path="res://Scenes/side.tscn" id="1_6q48a"]
+[ext_resource type="Script" path="res://Scripts/Porco.gd" id="2_4iu7n"]
+[ext_resource type="Script" path="res://Scripts/TopSide.gd" id="2_8spcc"]
+[ext_resource type="Script" path="res://Scripts/Tiro.gd" id="3_1i2us"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_770v2"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_vi2d8"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2m4ek"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_1wwrk"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="base" type="Node" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="base"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.21367)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="base"]
+transform = Transform3D(1, 0, 0, 0, 0.479979, -0.87728, 0, 0.87728, 0.479979, 0, 0, 0)
+
+[node name="scenery" type="Node" parent="."]
+
+[node name="side_left" parent="scenery" instance=ExtResource("1_6q48a")]
+transform = Transform3D(0.145315, 0, 0, 0, 1.47225, 0, 0, 0, 0.797603, -1, 0, 0.873)
+
+[node name="side_top" parent="scenery" instance=ExtResource("1_6q48a")]
+transform = Transform3D(2.13028, 0, 0, 0, 0.164763, 0, 0, 0, 0.797603, 0, 0.795, 0.873)
+script = ExtResource("2_8spcc")
+
+[node name="side_right" parent="scenery" instance=ExtResource("1_6q48a")]
+transform = Transform3D(0.145315, 0, 0, 0, 1.47225, 0, 0, 0, 0.797603, 1, 0, 0.873)
+
+[node name="background" type="MeshInstance3D" parent="scenery"]
+transform = Transform3D(2.29822, 0, 0, 0, 1.47225, 0, 0, 0, 0.0447477, 0, 0, 0.441685)
+mesh = SubResource("BoxMesh_770v2")
+skeleton = NodePath("../..")
+
+[node name="gameplay" type="Node" parent="."]
+
+[node name="Area3D" type="Area3D" parent="gameplay" node_paths=PackedStringArray("tiro")]
+script = ExtResource("2_4iu7n")
+tiro = NodePath("../tiro")
+
+[node name="porco" type="MeshInstance3D" parent="gameplay/Area3D"]
+transform = Transform3D(-3.4922e-09, -0.0798922, 0, 0.0798922, -3.4922e-09, 0, 0, 0, 0.0798922, 0, -0.178478, 0.925519)
+mesh = SubResource("CapsuleMesh_vi2d8")
+skeleton = NodePath("../../..")
+
+[node name="RigidBody3D" type="CharacterBody3D" parent="gameplay/Area3D/porco"]
+transform = Transform3D(1, -3.55271e-15, 0, 3.55271e-15, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="gameplay/Area3D/porco/RigidBody3D"]
+transform = Transform3D(1, -3.55271e-15, 0, 3.55271e-15, 1, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_2m4ek")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="gameplay/Area3D"]
+transform = Transform3D(-3.4922e-09, -0.0798922, 0, 0.0798922, -3.4922e-09, 0, 0, 0, 0.0798922, 0, -0.178478, 0.925519)
+shape = SubResource("CapsuleShape3D_2m4ek")
+
+[node name="tiro" type="MeshInstance3D" parent="gameplay" node_paths=PackedStringArray("_porco")]
+transform = Transform3D(-2.46331e-09, -0.00826257, 0, 0.0563538, -3.61168e-10, 0, 0, 0, 0.018694, 0, -0.0989281, 0.925519)
+mesh = SubResource("CapsuleMesh_vi2d8")
+skeleton = NodePath("../..")
+script = ExtResource("3_1i2us")
+_porco = NodePath("../Area3D")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="gameplay/tiro"]
+physics_material_override = SubResource("PhysicsMaterial_1wwrk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="gameplay/tiro/RigidBody3D"]
+shape = SubResource("CapsuleShape3D_2m4ek")

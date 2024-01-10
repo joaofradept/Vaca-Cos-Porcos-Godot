@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://doy66fn1hnnn5"]
+
+[ext_resource type="Script" path="res://porco.gd" id="1_qa1p6"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_770v2"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_vi2d8"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_1wwrk"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2m4ek"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.21367)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.29822, 0, 0, 0, 1.47225, 0, 0, 0, 0.0447477, 0, 0, 0.441685)
+mesh = SubResource("BoxMesh_770v2")
+
+[node name="porco" type="MeshInstance3D" parent="."]
+transform = Transform3D(-3.4922e-09, -0.0798922, 0, 0.0798922, -3.4922e-09, 0, 0, 0, 0.0798922, 0, -0.178478, 0.925519)
+mesh = SubResource("CapsuleMesh_vi2d8")
+script = ExtResource("1_qa1p6")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="porco"]
+physics_material_override = SubResource("PhysicsMaterial_1wwrk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="porco/RigidBody3D"]
+shape = SubResource("CapsuleShape3D_2m4ek")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.479979, -0.87728, 0, 0.87728, 0.479979, 0, 0, 0)
