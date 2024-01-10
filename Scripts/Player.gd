@@ -30,7 +30,7 @@ func _input(event):
 			if 1 not in pressedKeys:
 				pressedKeys.append(1)
 				
-		if event.is_action("shoot"):
+		if event.is_action_pressed("shoot"):
 			tiro.reposition(self)
 			
 		if event.is_action_released("move_left"):

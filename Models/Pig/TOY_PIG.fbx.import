@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://1enpskm1loy6"
-path="res://.godot/imported/TOY_PIG.fbx-e9db5fcbbf8137456ea963b26994f252.scn"
+path="res://.godot/imported/TOY_PIG.fbx-3fb219ded840515fad55f4f971b312db.scn"
 
 [deps]
 
-source_file="res://Pig/TOY_PIG.fbx"
-dest_files=["res://.godot/imported/TOY_PIG.fbx-e9db5fcbbf8137456ea963b26994f252.scn"]
+source_file="res://Models/Pig/TOY_PIG.fbx"
+dest_files=["res://.godot/imported/TOY_PIG.fbx-3fb219ded840515fad55f4f971b312db.scn"]
 
 [params]
 

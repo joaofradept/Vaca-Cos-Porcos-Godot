@@ -1,11 +1,29 @@
-[gd_scene load_steps=12 format=3 uid="uid://doy66fn1hnnn5"]
+[gd_scene load_steps=16 format=3 uid="uid://doy66fn1hnnn5"]
 
 [ext_resource type="PackedScene" uid="uid://d3jqyr856y71q" path="res://Scenes/side.tscn" id="1_6q48a"]
-[ext_resource type="Script" path="res://Scripts/Porco.gd" id="2_4iu7n"]
-[ext_resource type="Script" path="res://Scripts/TopSide.gd" id="2_8spcc"]
-[ext_resource type="Script" path="res://Scripts/Tiro.gd" id="3_1i2us"]
-[ext_resource type="Texture2D" uid="uid://dcqiisf5jakp5" path="res://Scripts/VacaCosPorcos_ícone_médio.png" id="4_hdgmc"]
+[ext_resource type="Script" path="res://Scripts/Player.gd" id="2_4iu7n"]
+[ext_resource type="Script" path="res://Scripts/Shot.gd" id="3_1i2us"]
+[ext_resource type="Texture2D" uid="uid://dcqiisf5jakp5" path="res://Sprites/VacaCosPorcos_ícone_médio.png" id="4_hdgmc"]
 [ext_resource type="PackedScene" uid="uid://lkrkh7ojvjfg" path="res://Scenes/Pig.tscn" id="5_5cwcf"]
+[ext_resource type="Texture2D" uid="uid://d300r1if6s8y4" path="res://Sprites/V.png" id="5_qhuhq"]
+
+[sub_resource type="GDScript" id="GDScript_jp6qa"]
+script/source = "extends StaticBody3D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+
+"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hy5xd"]
+albedo_color = Color(0.968627, 0.623529, 0.498039, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_5wybw"]
 
@@ -16,10 +34,15 @@ height = 1.98174
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1sq18"]
 albedo_color = Color(0.913725, 0.72549, 0.705882, 1)
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_vi2d8"]
+[sub_resource type="SphereMesh" id="SphereMesh_x2ief"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_vfkiq"]
 radius = 0.402828
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4vsaq"]
+albedo_color = Color(0.298039, 0.133333, 0.027451, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_vi2d8"]
 
 [node name="Node3D" type="Node3D"]
 
@@ -32,24 +55,25 @@ size = 1.15038
 far = 165.86
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="base"]
-transform = Transform3D(1, 0, 0, 0, 0.881014, 0.47309, 0, -0.47309, 0.881014, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.923304, 0.384071, 0, -0.384071, 0.923304, 0, 0, 0)
 
 [node name="scenery" type="Node" parent="."]
 
 [node name="side" parent="scenery" instance=ExtResource("1_6q48a")]
-transform = Transform3D(0.145315, 0, 0, 0, 1.47225, 0, 0, 0, 0.797603, -1, 0, 0.873)
+transform = Transform3D(0.160012, 0, 0, 0, 1.47225, 0, 0, 0, 0.797603, -1.10114, 0, 0.873)
 
 [node name="side_top" parent="scenery" instance=ExtResource("1_6q48a")]
-transform = Transform3D(2.13028, 0, 0, 0, 0.164763, 0, 0, 0, 0.797603, 0, 0.795, 0.873)
+transform = Transform3D(2.15288, 0, 0, 0, 0.164763, 0, 0, 0, 0.797603, 0, 0.818127, 0.873)
 
 [node name="StaticBody3D" parent="scenery/side_top" index="0" groups=["Boundaries"]]
-script = ExtResource("2_8spcc")
+script = SubResource("GDScript_jp6qa")
 
 [node name="side_right" parent="scenery" instance=ExtResource("1_6q48a")]
-transform = Transform3D(0.145315, 0, 0, 0, 1.47225, 0, 0, 0, 0.797603, 1, 0, 0.873)
+transform = Transform3D(0.160012, 0, 0, 0, 1.47225, 0, 0, 0, 0.797603, 1.10114, 0, 0.873)
 
 [node name="background" type="MeshInstance3D" parent="scenery"]
 transform = Transform3D(2.29822, 0, 0, 0, 1.47225, 0, 0, 0, 0.0447477, 0, 0, 0.441685)
+material_override = SubResource("StandardMaterial3D_hy5xd")
 mesh = SubResource("BoxMesh_5wybw")
 skeleton = NodePath("../..")
 
@@ -60,39 +84,45 @@ transform = Transform3D(-7.43824e-09, -0.170167, 0, 0.170167, -7.43824e-09, 0, 0
 motion_mode = 1
 script = ExtResource("2_4iu7n")
 tiro = NodePath("../Shot")
-speed = 1.3
+speed = 1.48
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="gameplay/Player"]
 transform = Transform3D(1, -3.55271e-15, 0, 3.55271e-15, 1, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_2m4ek")
 
-[node name="Mesh" type="MeshInstance3D" parent="gameplay/Player"]
-transform = Transform3D(1.1463, 0, 0, 3.55271e-15, 1, 0, 0, 0, 0.458217, 0, 0, 0)
-material_override = SubResource("StandardMaterial3D_1sq18")
-mesh = SubResource("CapsuleMesh_vi2d8")
-skeleton = NodePath("../../..")
-
-[node name="Sprite3D" type="Sprite3D" parent="gameplay/Player/Mesh"]
-transform = Transform3D(-2.28084e-08, 0.521797, 0, -0.598136, -2.61453e-08, 0, 0, 0, 1.30535, 0.0155013, -7.7673e-10, 0.632259)
+[node name="Sprite3D" type="Sprite3D" parent="gameplay/Player"]
+transform = Transform3D(-2.76477e-08, 0.632506, 0, -0.632506, -2.76477e-08, 0, 0, 0, 0.71166, 0.0591545, -2.58576e-09, 0.289712)
 texture = ExtResource("4_hdgmc")
+
+[node name="Sprite3D2" type="Sprite3D" parent="gameplay/Player"]
+transform = Transform3D(-2.61453e-08, 0.598136, 0, -0.598136, -2.61453e-08, 0, 0, 0, 0.598134, 0.0177691, -7.76726e-10, 0.503791)
+texture = ExtResource("5_qhuhq")
+
+[node name="Mesh" type="MeshInstance3D" parent="gameplay/Player"]
+transform = Transform3D(0.728746, 6.75016e-14, 0, -4.9738e-14, 0.741544, 0, 0, 0, 0.458217, 0.0152524, -6.66702e-10, 0.197778)
+material_override = SubResource("StandardMaterial3D_1sq18")
+mesh = SubResource("SphereMesh_x2ief")
+skeleton = NodePath("../../..")
 
 [node name="Pig" parent="gameplay/Player/Mesh" instance=ExtResource("5_5cwcf")]
 transform = Transform3D(-1.90774e-15, 0.918075, 4.01304e-08, -1.31352e-07, -3.50087e-08, 1.05239, 1.05239, 1.09928e-08, 1.31352e-07, 0, 0.235204, 0)
 visible = false
 
 [node name="Shot" type="Area3D" parent="gameplay" node_paths=PackedStringArray("mesh", "player")]
-transform = Transform3D(0.0382792, -1.11022e-16, 0, 1.11022e-16, 0.0382792, 0, 0, 0, 0.0382792, 2.2482e-15, -0.304636, 0.566579)
+transform = Transform3D(0.0382792, -1.11022e-16, 0, 1.11022e-16, 0.0382792, 0, 0, 0, 0.0382792, 2.2482e-15, -0.242382, 0.566579)
 script = ExtResource("3_1i2us")
 mesh = NodePath("Mesh")
 player = NodePath("../Player")
 speed = 2.6
+metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="gameplay/Shot"]
 transform = Transform3D(1, -4.44089e-16, 0, -2.11758e-22, 1, 0, 0, 0, 1, 2.39619e-16, 0.633973, 0)
 shape = SubResource("SphereShape3D_vfkiq")
 
 [node name="Mesh" type="MeshInstance3D" parent="gameplay/Shot"]
-transform = Transform3D(0.810961, -9.26891e-16, 0, 0, 1.04359, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(0.552775, -8.81236e-16, 0, -1.05879e-22, 0.992187, 0, 0, 0, 1, -8.06324e-15, -2.78012, 0)
+material_override = SubResource("StandardMaterial3D_4vsaq")
 mesh = SubResource("CapsuleMesh_vi2d8")
 skeleton = NodePath("../../..")
 
