@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://1buss0exf1we"
+path="res://.godot/imported/chefe.obj-1a62d892f3f2d1440f49866e7ed80941.mesh"
+
+[deps]
+
+files=["res://.godot/imported/chefe.obj-1a62d892f3f2d1440f49866e7ed80941.mesh"]
+
+source_file="res://Models/Cows/chefe.obj"
+dest_files=["res://.godot/imported/chefe.obj-1a62d892f3f2d1440f49866e7ed80941.mesh", "res://.godot/imported/chefe.obj-1a62d892f3f2d1440f49866e7ed80941.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

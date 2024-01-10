@@ -5,11 +5,13 @@ extends Area3D
 @export var speed = 2.0
 
 var inY
+var myPoints
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	inY = position.y
 	mayStart = true
+	myPoints = 0
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -33,7 +35,7 @@ var mayStart: bool
 func reset():
 	move = false
 	mayStart = false
-	await(get_tree().create_timer(.15).timeout)
+	#await(get_tree().create_timer(.15).timeout)
 	mayStart = true
 
 @rpc
@@ -49,4 +51,11 @@ func reposition(porco):
 func _on_body_entered(body):
 	if body.is_in_group("Boundaries"):
 		reset()
-	pass # Replace with function body.
+	elif body.is_in_group("Cow"):
+		_on_cow_entered(body)
+		
+func _on_cow_entered(body):
+	myPoints += body.collide_and_get_points()
+	myPoints = max(0, myPoints)
+	
+	print("points: " + str(myPoints))

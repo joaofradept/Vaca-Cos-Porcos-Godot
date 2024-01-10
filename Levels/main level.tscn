@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://doy66fn1hnnn5"]
+[gd_scene load_steps=26 format=3 uid="uid://doy66fn1hnnn5"]
 
 [ext_resource type="PackedScene" uid="uid://d3jqyr856y71q" path="res://Scenes/side.tscn" id="1_6q48a"]
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="2_4iu7n"]
@@ -6,6 +6,13 @@
 [ext_resource type="Texture2D" uid="uid://dcqiisf5jakp5" path="res://Sprites/VacaCosPorcos_ícone_médio.png" id="4_hdgmc"]
 [ext_resource type="PackedScene" uid="uid://lkrkh7ojvjfg" path="res://Scenes/Pig.tscn" id="5_5cwcf"]
 [ext_resource type="Texture2D" uid="uid://d300r1if6s8y4" path="res://Sprites/V.png" id="5_qhuhq"]
+[ext_resource type="PackedScene" uid="uid://b45626gfyyv1y" path="res://Scenes/louca.tscn" id="7_eqws5"]
+[ext_resource type="Script" path="res://Scripts/CowManager.gd" id="7_foutp"]
+[ext_resource type="ArrayMesh" uid="uid://doek6qf37psll" path="res://Models/Cows/acores.obj" id="8_7qanm"]
+[ext_resource type="ArrayMesh" uid="uid://1buss0exf1we" path="res://Models/Cows/chefe.obj" id="9_5np1k"]
+[ext_resource type="Texture2D" uid="uid://052d8eak0sqv" path="res://Sprites/Cows/vacaacores.png" id="9_gyoca"]
+[ext_resource type="Texture2D" uid="uid://b1gndiq1kkhro" path="res://Sprites/Cows/vacachefe.png" id="11_4jafu"]
+[ext_resource type="PackedScene" uid="uid://72hwheb78kh6" path="res://Scenes/engripada.tscn" id="13_bqq58"]
 
 [sub_resource type="GDScript" id="GDScript_jp6qa"]
 script/source = "extends StaticBody3D
@@ -22,6 +29,11 @@ func _process(delta):
 
 "
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xnccq"]
+transparency = 1
+blend_mode = 3
+albedo_color = Color(0.988235, 0.909804, 0.917647, 0.290196)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hy5xd"]
 albedo_color = Color(0.968627, 0.623529, 0.498039, 1)
 
@@ -36,43 +48,60 @@ albedo_color = Color(0.913725, 0.72549, 0.705882, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_x2ief"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_vfkiq"]
-radius = 0.402828
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8ih3b"]
+height = 5.59596
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4vsaq"]
-albedo_color = Color(0.298039, 0.133333, 0.027451, 1)
+albedo_color = Color(0.972549, 0.690196, 0.537255, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_vi2d8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v077r"]
+albedo_color = Color(0.505882, 0.278431, 0.0196078, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jkomv"]
+albedo_color = Color(0, 0.517647, 0.0941176, 1)
 
 [node name="Node3D" type="Node3D"]
 
 [node name="base" type="Node" parent="."]
 
 [node name="Camera3D" type="Camera3D" parent="base"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.189193, 1.47686)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.161746, 1.47686)
 projection = 1
-size = 1.15038
+size = 1.73
 far = 165.86
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="base"]
-transform = Transform3D(1, 0, 0, 0, 0.923304, 0.384071, 0, -0.384071, 0.923304, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.923304, 0.384071, 0, -0.384071, 0.923304, 0.248803, 0.432659, 1.03147)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="base"]
+transform = Transform3D(1, 0, 0, 0, 0.923304, 0.384071, 0, -0.384071, 0.923304, -0.0551129, 0.276982, 0.844124)
+light_energy = 0.437
 
 [node name="scenery" type="Node" parent="."]
 
 [node name="side" parent="scenery" instance=ExtResource("1_6q48a")]
-transform = Transform3D(0.160012, 0, 0, 0, 1.47225, 0, 0, 0, 0.797603, -1.10114, 0, 0.873)
+transform = Transform3D(0.240843, 0, 0, 0, 1.47225, 0, 0, 0, 0.797603, -1.65738, 0, 0.873)
+
+[node name="side_right" parent="scenery" instance=ExtResource("1_6q48a")]
+transform = Transform3D(0.240843, 0, 0, 0, 1.47225, 0, 0, 0, 0.797603, 1.65738, 0, 0.873)
 
 [node name="side_top" parent="scenery" instance=ExtResource("1_6q48a")]
-transform = Transform3D(2.15288, 0, 0, 0, 0.164763, 0, 0, 0, 0.797603, 0, 0.818127, 0.873)
+transform = Transform3D(3.13009, 0, 0, 0, 0.0375981, 0, 0, 0, 0.797603, -0.00378596, 0.861636, 0.873)
 
 [node name="StaticBody3D" parent="scenery/side_top" index="0" groups=["Boundaries"]]
 script = SubResource("GDScript_jp6qa")
 
-[node name="side_right" parent="scenery" instance=ExtResource("1_6q48a")]
-transform = Transform3D(0.160012, 0, 0, 0, 1.47225, 0, 0, 0, 0.797603, 1.10114, 0, 0.873)
+[node name="side_top2" parent="scenery" instance=ExtResource("1_6q48a")]
+transform = Transform3D(3.13009, 0, 0, 0, 0.36807, 0, 0, 0, 0.797603, 0.0204676, 1.06535, 0.873727)
+material_override = SubResource("StandardMaterial3D_xnccq")
+
+[node name="StaticBody3D" parent="scenery/side_top2" index="0"]
+script = SubResource("GDScript_jp6qa")
 
 [node name="background" type="MeshInstance3D" parent="scenery"]
-transform = Transform3D(2.29822, 0, 0, 0, 1.47225, 0, 0, 0, 0.0447477, 0, 0, 0.441685)
+transform = Transform3D(4.70834, 0, 0, 0, 2.67509, 0, 0, 0, 0.0668534, 0, 0.0496151, 0.441685)
 material_override = SubResource("StandardMaterial3D_hy5xd")
 mesh = SubResource("BoxMesh_5wybw")
 skeleton = NodePath("../..")
@@ -80,7 +109,7 @@ skeleton = NodePath("../..")
 [node name="gameplay" type="Node" parent="."]
 
 [node name="Player" type="CharacterBody3D" parent="gameplay" node_paths=PackedStringArray("tiro")]
-transform = Transform3D(-7.43824e-09, -0.170167, 0, 0.170167, -7.43824e-09, 0, 0, 0, 0.170167, 7.99506e-09, -0.361384, 0.66422)
+transform = Transform3D(-9.38358e-09, -0.214671, 0, 0.214671, -9.38358e-09, 0, 0, 0, 0.214671, 7.99506e-09, -0.660088, 0.66422)
 motion_mode = 1
 script = ExtResource("2_4iu7n")
 tiro = NodePath("../Shot")
@@ -109,23 +138,65 @@ transform = Transform3D(-1.90774e-15, 0.918075, 4.01304e-08, -1.31352e-07, -3.50
 visible = false
 
 [node name="Shot" type="Area3D" parent="gameplay" node_paths=PackedStringArray("mesh", "player")]
-transform = Transform3D(0.0382792, -1.11022e-16, 0, 1.11022e-16, 0.0382792, 0, 0, 0, 0.0382792, 2.2482e-15, -0.242382, 0.566579)
+transform = Transform3D(0.0382792, -1.11022e-16, 0, 1.11022e-16, 0.0382792, 0, 0, 0, 0.0382792, 2.2482e-15, -0.808341, 0.699551)
 script = ExtResource("3_1i2us")
 mesh = NodePath("Mesh")
 player = NodePath("../Player")
-speed = 2.6
+speed = 3.075
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="gameplay/Shot"]
-transform = Transform3D(1, -4.44089e-16, 0, -2.11758e-22, 1, 0, 0, 0, 1, 2.39619e-16, 0.633973, 0)
-shape = SubResource("SphereShape3D_vfkiq")
+transform = Transform3D(1, -2.90032e-15, 0, -2.11758e-22, -4.37114e-08, -1, 2.90032e-15, 1, -4.37114e-08, 1.48822e-15, 0.633972, -0.430504)
+shape = SubResource("CapsuleShape3D_8ih3b")
 
 [node name="Mesh" type="MeshInstance3D" parent="gameplay/Shot"]
-transform = Transform3D(0.552775, -8.81236e-16, 0, -1.05879e-22, 0.992187, 0, 0, 0, 1, -8.06324e-15, -2.78012, 0)
+transform = Transform3D(0.552775, -8.81236e-16, 0, -1.05879e-22, 0.992187, 0, 0, 0, 1, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_4vsaq")
 mesh = SubResource("CapsuleMesh_vi2d8")
 skeleton = NodePath("../../..")
 
+[node name="Falling Area - Cow Manager" type="Node" parent="gameplay" node_paths=PackedStringArray("chefe", "louca", "acores", "engripada")]
+script = ExtResource("7_foutp")
+chefe = NodePath("Chefe")
+louca = NodePath("Louca")
+acores = NodePath("Acores")
+engripada = NodePath("Engripada")
+
+[node name="Chefe" parent="gameplay/Falling Area - Cow Manager" groups=["Cow"] instance=ExtResource("7_eqws5")]
+transform = Transform3D(0.0346194, -1.00408e-16, 0, 1.00408e-16, 0.0346194, 0, 0, 0, 0.0346194, -0.212007, 1.13354, 0.645307)
+
+[node name="Mesh" parent="gameplay/Falling Area - Cow Manager/Chefe" index="1"]
+transform = Transform3D(0.055, 9.26442e-23, 0, -9.26442e-23, 0.051, 0, 0, 0, 0.0522653, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_v077r")
+mesh = ExtResource("9_5np1k")
+
+[node name="Sprite3D" parent="gameplay/Falling Area - Cow Manager/Chefe/Mesh" index="0"]
+transform = Transform3D(55.4551, 2.10091e-13, 5.23075e-36, -1.7103e-13, 58.9695, 1.46935e-21, -2.394e-07, -1.11705e-21, 365.288, 0, 0, -0.656952)
+texture = ExtResource("11_4jafu")
+
+[node name="Louca" parent="gameplay/Falling Area - Cow Manager" groups=["Cow"] instance=ExtResource("7_eqws5")]
+transform = Transform3D(0.0313508, -9.09274e-17, 0, 9.09274e-17, 0.0313508, 0, 0, 0, 0.0313508, -0.370108, 0.292605, 0.645307)
+points = 2
+
+[node name="Acores" parent="gameplay/Falling Area - Cow Manager" groups=["Cow"] instance=ExtResource("7_eqws5")]
+transform = Transform3D(0.0360981, -1.04696e-16, 0, 1.04696e-16, 0.0360981, 0, 0, 0, 0.0360981, -0.586467, 0.282362, 0.645307)
+points = 4
+
+[node name="Mesh" parent="gameplay/Falling Area - Cow Manager/Acores" index="1"]
+transform = Transform3D(0.055, 9.26442e-23, 0, -9.26442e-23, 0.051, 0, 0, 0, 0.0522653, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_jkomv")
+mesh = ExtResource("8_7qanm")
+
+[node name="Sprite3D" parent="gameplay/Falling Area - Cow Manager/Acores/Mesh" index="0"]
+transform = Transform3D(29.5161, 1.11821e-13, 2.78408e-36, -9.10313e-14, 31.3866, 7.82065e-22, -1.27421e-07, -5.94553e-22, 194.425, 0, 0, 0.94281)
+texture = ExtResource("9_gyoca")
+
+[node name="Engripada" parent="gameplay/Falling Area - Cow Manager" groups=["Cow"] instance=ExtResource("13_bqq58")]
+points = -10
+
 [connection signal="body_entered" from="gameplay/Shot" to="gameplay/Shot" method="_on_body_entered"]
 
 [editable path="scenery/side_top"]
+[editable path="scenery/side_top2"]
+[editable path="gameplay/Falling Area - Cow Manager/Chefe"]
+[editable path="gameplay/Falling Area - Cow Manager/Acores"]
