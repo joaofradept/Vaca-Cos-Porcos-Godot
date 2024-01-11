@@ -7,7 +7,7 @@ var moving
 
 # Called when the node enters the scene tree for the first time.$Mesh
 func _ready():
-	pass
+	visible = false
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -16,8 +16,10 @@ func _process(delta):
 		move(delta)
 		
 @rpc
-func start_move():
+func start_move(pos):
+	visible = true
 	moving = true
+	position = pos
 
 @rpc
 func move(delta):
@@ -26,5 +28,6 @@ func move(delta):
 		#await(get_tree().create_timer(.15).timeout)
 
 func collide_and_get_points():
-	self.queue_free()
+	visible = false
+	position = Vector3(10000, 10000, 10000)
 	return points

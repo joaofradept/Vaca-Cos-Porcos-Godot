@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://c8bciwp42pe7x" path="res://Sprites/Cows/vacalouca.png" id="3_4pyhs"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_q48og"]
-size = Vector3(1.10742, 0.907349, 1)
+size = Vector3(1.16406, 1.0625, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2vwog"]
 albedo_color = Color(0.87451, 0.772549, 0, 1)

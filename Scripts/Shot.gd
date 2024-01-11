@@ -12,6 +12,7 @@ func _ready():
 	inY = position.y
 	mayStart = true
 	myPoints = 0
+	visible = false
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -33,19 +34,21 @@ var mayStart: bool
 @rpc
 # chamar quando o tiro chegar ao topo do ecra
 func reset():
+	visible = false
 	move = false
 	mayStart = false
 	#await(get_tree().create_timer(.15).timeout)
 	mayStart = true
 
 @rpc
-func reposition(porco):
+func shoot(porco):
 	if !mayStart:
 		return
 	
 	var y = position.y
 	position = porco.position
 	position.y = y
+	visible = true
 	move = true
 
 func _on_body_entered(body):
