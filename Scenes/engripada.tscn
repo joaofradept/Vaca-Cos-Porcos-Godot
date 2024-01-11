@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cnlgxvwm5eggd" path="res://Sprites/Cows/vacaengripada.png" id="3_ii6pc"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_q48og"]
-size = Vector3(1.10742, 0.907349, 1)
+size = Vector3(0.851074, 1.03125, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x6wfu"]
 albedo_color = Color(1, 0, 0.0117647, 1)
@@ -14,12 +14,14 @@ uv1_offset = Vector3(0.76, 0.11, 0)
 
 [node name="Engripada" type="CharacterBody3D" node_paths=PackedStringArray("mesh")]
 transform = Transform3D(0.057249, 0, 0, 0, 0.057249, 0, 0, 0, 0.057249, 2.2482e-15, 0.292605, 0.645307)
+collision_layer = 4
+collision_mask = 9
 script = ExtResource("1_ma7na")
 mesh = NodePath("Mesh")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(5.04438, -2.24013e-15, 0, -1.60936e-19, 5.04438, 0, 0, 0, 5.04438, 5.0988e-16, 0.0252852, 0)
+transform = Transform3D(5.04438, -2.24013e-15, 0, -1.60936e-19, 5.04438, 0, 0, 0, 5.04438, 0.114533, 0.0252852, 0)
 shape = SubResource("BoxShape3D_q48og")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]

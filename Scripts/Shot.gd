@@ -12,8 +12,7 @@ func _ready():
 	inY = position.y
 	mayStart = true
 	myPoints = 0
-	visible = false
-
+	_disable()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -24,7 +23,7 @@ func _process(delta):
 		pos.y = inY
 		position = pos
 	
-	
+
 func _move(delta):
 	position.y += speed * delta
 	
@@ -34,21 +33,21 @@ var mayStart: bool
 @rpc
 # chamar quando o tiro chegar ao topo do ecra
 func reset():
-	visible = false
+	_disable()
 	move = false
 	mayStart = false
 	#await(get_tree().create_timer(.15).timeout)
 	mayStart = true
 
 @rpc
-func shoot(porco):
+func shoot(player):
 	if !mayStart:
 		return
 	
 	var y = position.y
-	position = porco.position
+	position = player.position
 	position.y = y
-	visible = true
+	_enable()
 	move = true
 
 func _on_body_entered(body):
@@ -62,3 +61,11 @@ func _on_cow_entered(body):
 	myPoints = max(0, myPoints)
 	
 	print("points: " + str(myPoints))
+	
+func _disable():
+	visible = false
+	$CollisionShape3D.set_deferred("disabled", true)
+
+func _enable():
+	visible = true
+	$CollisionShape3D.set_deferred("disabled", false)

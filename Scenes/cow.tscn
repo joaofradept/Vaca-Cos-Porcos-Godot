@@ -5,19 +5,21 @@
 [ext_resource type="Texture2D" uid="uid://c8bciwp42pe7x" path="res://Sprites/Cows/vacalouca.png" id="3_4pyhs"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_q48og"]
-size = Vector3(1.16406, 1.0625, 1)
+size = Vector3(1.56641, 1.27832, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2vwog"]
 albedo_color = Color(0.87451, 0.772549, 0, 1)
 
-[node name="Louca" type="CharacterBody3D" node_paths=PackedStringArray("mesh")]
+[node name="Cow" type="CharacterBody3D" node_paths=PackedStringArray("mesh")]
 transform = Transform3D(0.039218, -1.13745e-16, 0, 1.13745e-16, 0.039218, 0, 0, 0, 0.039218, -0.370108, 0.292605, 0.699551)
+collision_layer = 4
+collision_mask = 9
 script = ExtResource("1_sn46k")
 mesh = NodePath("Mesh")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(5.04438, -2.24015e-15, 0, -1.69407e-21, 5.04438, 0, 0, 0, 5.04438, 5.0185e-16, 0.0434504, 0)
+transform = Transform3D(5.04438, 1.69407e-21, 0, -1.69407e-21, 5.04438, 0, 0, 0, 5.04438, 0, 0.0434504, 0)
 shape = SubResource("BoxShape3D_q48og")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]

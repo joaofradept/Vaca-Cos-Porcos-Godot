@@ -39,6 +39,13 @@ shoot={
 ]
 }
 
+[layer_names]
+
+3d_physics/layer_1="Environment"
+3d_physics/layer_2="Player"
+3d_physics/layer_3="Cows"
+3d_physics/layer_4="Shots"
+
 [rendering]
 
 renderer/rendering_method="mobile"
