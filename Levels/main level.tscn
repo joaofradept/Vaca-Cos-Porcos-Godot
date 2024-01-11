@@ -88,7 +88,7 @@ transform = Transform3D(0.240843, 0, 0, 0, 1.47225, 0, 0, 0, 0.797603, -1.65738,
 transform = Transform3D(0.240843, 0, 0, 0, 1.47225, 0, 0, 0, 0.797603, 1.65738, 0, 0.873)
 
 [node name="side_top" parent="scenery" instance=ExtResource("1_6q48a")]
-transform = Transform3D(3.13009, 0, 0, 0, 0.0375981, 0, 0, 0, 0.797603, -0.00378596, 0.861636, 0.873)
+transform = Transform3D(3.13009, 0, 0, 0, 0.0695001, 0, 0, 0, 0.797603, -0.00378596, 0.861636, 0.873)
 
 [node name="StaticBody3D" parent="scenery/side_top" index="0" groups=["Boundaries"]]
 script = SubResource("GDScript_jp6qa")
@@ -96,9 +96,6 @@ script = SubResource("GDScript_jp6qa")
 [node name="side_top2" parent="scenery" instance=ExtResource("1_6q48a")]
 transform = Transform3D(3.13009, 0, 0, 0, 0.36807, 0, 0, 0, 0.797603, 0.0204676, 1.02916, 0.826084)
 material_override = SubResource("StandardMaterial3D_xnccq")
-
-[node name="StaticBody3D" parent="scenery/side_top2" index="0"]
-script = SubResource("GDScript_jp6qa")
 
 [node name="background" type="MeshInstance3D" parent="scenery"]
 transform = Transform3D(4.70834, 0, 0, 0, 2.67509, 0, 0, 0, 0.0668534, 0, 0.0496151, 0.441685)
