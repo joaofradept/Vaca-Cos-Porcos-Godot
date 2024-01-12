@@ -4,8 +4,8 @@
 [ext_resource type="Script" path="res://Scripts/UI/UIManager.gd" id="1_s2j5a"]
 [ext_resource type="Script" path="res://Scripts/UI/Layers/Base/AUILayerController_Panel.gd" id="2_3hyfu"]
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="2_4iu7n"]
-[ext_resource type="Script" path="res://Scripts/UI/UIScreenController_PointsPanel.gd" id="3_0thgq"]
 [ext_resource type="Script" path="res://Scripts/Shot.gd" id="3_1i2us"]
+[ext_resource type="Script" path="res://Scripts/UI/Screens/Base/AUIScreenController_Panel.gd" id="3_tgd3b"]
 [ext_resource type="Texture2D" uid="uid://dcqiisf5jakp5" path="res://Sprites/VacaCosPorcos_ícone_médio.png" id="4_hdgmc"]
 [ext_resource type="PackedScene" uid="uid://lkrkh7ojvjfg" path="res://Scenes/Pig.tscn" id="5_5cwcf"]
 [ext_resource type="Texture2D" uid="uid://d300r1if6s8y4" path="res://Sprites/V.png" id="5_qhuhq"]
@@ -91,15 +91,15 @@ grow_vertical = 2
 theme = SubResource("Theme_gw7m3")
 script = ExtResource("2_3hyfu")
 
-[node name="Points Panel" type="Control" parent="Control - UI Manager/Panel Layer" node_paths=PackedStringArray("pointsLabel")]
+[node name="Points Panel" type="Control" parent="Control - UI Manager/Panel Layer"]
 layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-grow_vertical = 0
+grow_horizontal = 2
+grow_vertical = 2
 theme = SubResource("Theme_gw7m3")
-script = ExtResource("3_0thgq")
-pointsLabel = NodePath("Label")
+script = ExtResource("3_tgd3b")
 start_visible = true
 
 [node name="Label" type="Label" parent="Control - UI Manager/Panel Layer/Points Panel"]
@@ -107,26 +107,10 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 8.0
 offset_top = -49.0
-offset_right = 155.0
-grow_vertical = 0
-text = "pontos"
-vertical_alignment = 2
-
-[node name="Time Panel" type="Control" parent="Control - UI Manager/Panel Layer" node_paths=PackedStringArray("pointsLabel")]
-layout_mode = 1
-anchors_preset = 0
-theme = SubResource("Theme_gw7m3")
-script = ExtResource("3_0thgq")
-pointsLabel = NodePath("../Points Panel/Label")
-start_visible = true
-
-[node name="Label" type="Label" parent="Control - UI Manager/Panel Layer/Time Panel"]
-layout_mode = 1
 offset_right = 147.0
-offset_bottom = 49.0
-text = "tempo"
+grow_vertical = 0
+text = "53"
 
 [node name="base" type="Node" parent="."]
 
@@ -282,7 +266,6 @@ points = -10
 mesh = NodePath("../Engripada/Mesh")
 
 [connection signal="body_entered" from="gameplay/Shot" to="gameplay/Shot" method="_on_body_entered"]
-[connection signal="points_updated" from="gameplay/Shot" to="Control - UI Manager/Panel Layer/Points Panel" method="update_points"]
 
 [editable path="scenery/side_top"]
 [editable path="scenery/side_top2"]
