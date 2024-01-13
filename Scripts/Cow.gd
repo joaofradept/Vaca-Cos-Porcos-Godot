@@ -7,9 +7,7 @@ var moving
 
 # Called when the node enters the scene tree for the first time.$Mesh
 func _ready():
-	visible = false
-	
-
+	_disable()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -18,7 +16,7 @@ func _process(delta):
 		
 @rpc
 func start_move(pos):
-	visible = true
+	_enable()
 	moving = true
 	position = pos
 
@@ -29,6 +27,20 @@ func move(delta):
 		#await(get_tree().create_timer(.15).timeout)
 
 func collide_and_get_points():
-	visible = false
+	_disable()
 	position = Vector3(10000, 10000, 10000)
 	return points
+
+@rpc
+func destroy(delay):
+	$CollisionShape3D.set_deferred("disabled", true)
+	await get_tree().create_timer(delay)
+	visible = false
+
+func _disable():
+	visible = false
+	$CollisionShape3D.set_deferred("disabled", true)
+
+func _enable():
+	visible = true
+	$CollisionShape3D.set_deferred("disabled", false)

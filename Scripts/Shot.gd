@@ -5,14 +5,13 @@ extends Area3D
 @export var speed = 2.0
 
 var _inY
-var _myPoints = 0
-signal points_updated(points)
+signal add_points(points, player)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_inY = position.y
 	mayStart = true
-	_set_myPoints(0)
+	_count_points(0)
 	_disable()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -58,12 +57,17 @@ func _on_body_entered(body):
 		_on_cow_entered(body)
 		
 func _on_cow_entered(body):
-	_set_myPoints(body.collide_and_get_points())
+	var points = body.collide_and_get_points()
+	_inst_points_instance(points, body.global_position)
+	_count_points(points)
 	
-func _set_myPoints(val):
-	_myPoints += val
-	_myPoints = max(0, _myPoints)
-	emit_signal("points_updated", _myPoints)
+func _count_points(val):
+	emit_signal("add_points", val, player)
+	
+func _inst_points_instance(points, position):
+	var inst = preload("res://Scenes/points_instance.tscn").instantiate()
+	get_parent().add_child(inst)
+	inst.init(points, global_position)
 	
 func _disable():
 	visible = false

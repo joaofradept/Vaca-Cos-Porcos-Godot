@@ -31,6 +31,14 @@ func start_cows():
 @rpc
 func stop_cows():
 	started = false
+	chefe.destroy(.5)
+	louca.destroy(.9)
+	acores.destroy(.13)
+	
+	var i = 0
+	for item in engripadas:
+		i += 1
+		item.destroy(.15 + (i * .3))
 	
 func _process_cows():
 	var rng = RandomNumberGenerator.new()

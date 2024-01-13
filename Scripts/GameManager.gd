@@ -10,7 +10,7 @@ func _ready():
 	_start_game()
 	
 func _start_game():
-	await get_tree().create_timer(1).timeout
+	#await get_tree().create_timer(1).timeout
 	timeManager.start_time()
 	cowManager.start_cows()
 	
@@ -21,4 +21,7 @@ func _on_time_updated(currentTime):
 func _end_game():
 	timeManager.stop_time()
 	cowManager.stop_cows()
-	Engine.time_scale = 0
+	#Engine.time_scale = 0
+	
+func _on_add_points_to_player(points: int, player: Player):
+	player.add_points(points)
