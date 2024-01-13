@@ -1,12 +1,13 @@
-[gd_scene load_steps=30 format=3 uid="uid://doy66fn1hnnn5"]
+[gd_scene load_steps=34 format=3 uid="uid://doy66fn1hnnn5"]
 
 [ext_resource type="PackedScene" uid="uid://d3jqyr856y71q" path="res://Scenes/side.tscn" id="1_6q48a"]
 [ext_resource type="Script" path="res://Scripts/UI/UIManager.gd" id="1_s2j5a"]
 [ext_resource type="Script" path="res://Scripts/UI/Layers/Base/AUILayerController_Panel.gd" id="2_3hyfu"]
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="2_4iu7n"]
-[ext_resource type="Script" path="res://Scripts/UI/UIScreenController_PointsPanel.gd" id="3_0thgq"]
+[ext_resource type="Script" path="res://Scripts/UI/Screens/UIScreenController_PointsPanel.gd" id="3_0thgq"]
 [ext_resource type="Script" path="res://Scripts/Shot.gd" id="3_1i2us"]
 [ext_resource type="Texture2D" uid="uid://dcqiisf5jakp5" path="res://Sprites/VacaCosPorcos_ícone_médio.png" id="4_hdgmc"]
+[ext_resource type="Script" path="res://Scripts/UI/Screens/UIScreenController_TimePanel.gd" id="4_nx7vu"]
 [ext_resource type="PackedScene" uid="uid://lkrkh7ojvjfg" path="res://Scenes/Pig.tscn" id="5_5cwcf"]
 [ext_resource type="Texture2D" uid="uid://d300r1if6s8y4" path="res://Sprites/V.png" id="5_qhuhq"]
 [ext_resource type="PackedScene" uid="uid://b45626gfyyv1y" path="res://Scenes/cow.tscn" id="7_eqws5"]
@@ -15,10 +16,15 @@
 [ext_resource type="ArrayMesh" uid="uid://1buss0exf1we" path="res://Models/Cows/chefe.obj" id="9_5np1k"]
 [ext_resource type="Texture2D" uid="uid://052d8eak0sqv" path="res://Sprites/Cows/vacaacores.png" id="9_gyoca"]
 [ext_resource type="Texture2D" uid="uid://b1gndiq1kkhro" path="res://Sprites/Cows/vacachefe.png" id="11_4jafu"]
+[ext_resource type="Script" path="res://Levels/Time Manager.gd" id="11_33bdp"]
+[ext_resource type="Script" path="res://Scripts/GameManager.gd" id="11_eoin6"]
 [ext_resource type="PackedScene" uid="uid://72hwheb78kh6" path="res://Scenes/engripada.tscn" id="13_bqq58"]
 
 [sub_resource type="Theme" id="Theme_gw7m3"]
 default_font_size = 35
+
+[sub_resource type="Theme" id="Theme_malhr"]
+default_font_size = 100
 
 [sub_resource type="GDScript" id="GDScript_jp6qa"]
 script/source = "extends StaticBody3D
@@ -114,19 +120,49 @@ grow_vertical = 0
 text = "pontos"
 vertical_alignment = 2
 
-[node name="Time Panel" type="Control" parent="Control - UI Manager/Panel Layer" node_paths=PackedStringArray("pointsLabel")]
+[node name="Time Panel" type="Control" parent="Control - UI Manager/Panel Layer" node_paths=PackedStringArray("timeLabel")]
 layout_mode = 1
 anchors_preset = 0
 theme = SubResource("Theme_gw7m3")
-script = ExtResource("3_0thgq")
-pointsLabel = NodePath("../Points Panel/Label")
+script = ExtResource("4_nx7vu")
+timeLabel = NodePath("Label")
 start_visible = true
 
 [node name="Label" type="Label" parent="Control - UI Manager/Panel Layer/Time Panel"]
 layout_mode = 1
-offset_right = 147.0
+offset_left = 8.0
+offset_right = 155.0
 offset_bottom = 49.0
 text = "tempo"
+
+[node name="End Screen" type="Control" parent="Control - UI Manager/Panel Layer" node_paths=PackedStringArray("timeLabel")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_malhr")
+script = ExtResource("4_nx7vu")
+timeLabel = NodePath("../Time Panel/Label")
+
+[node name="Label" type="Label" parent="Control - UI Manager/Panel Layer/End Screen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -348.0
+offset_top = -68.5
+offset_right = 348.0
+offset_bottom = 68.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Fim do tempo!"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="base" type="Node" parent="."]
 
@@ -219,6 +255,14 @@ material_override = SubResource("StandardMaterial3D_4vsaq")
 mesh = SubResource("CapsuleMesh_vi2d8")
 skeleton = NodePath("../../..")
 
+[node name="Game Manager" type="Node" parent="gameplay" node_paths=PackedStringArray("timeManager", "cowManager")]
+script = ExtResource("11_eoin6")
+timeManager = NodePath("../Time Manager")
+cowManager = NodePath("../Falling Area - Cow Manager")
+
+[node name="Time Manager" type="Node" parent="gameplay"]
+script = ExtResource("11_33bdp")
+
 [node name="Falling Area - Cow Manager" type="Node" parent="gameplay" node_paths=PackedStringArray("chefe", "louca", "acores", "engripadas", "startPlace", "endPlace")]
 script = ExtResource("7_foutp")
 chefe = NodePath("Chefe")
@@ -282,7 +326,9 @@ points = -10
 mesh = NodePath("../Engripada/Mesh")
 
 [connection signal="body_entered" from="gameplay/Shot" to="gameplay/Shot" method="_on_body_entered"]
-[connection signal="points_updated" from="gameplay/Shot" to="Control - UI Manager/Panel Layer/Points Panel" method="update_points"]
+[connection signal="points_updated" from="gameplay/Shot" to="Control - UI Manager/Panel Layer/Points Panel" method="_on_points_updated"]
+[connection signal="time_updated" from="gameplay/Time Manager" to="Control - UI Manager/Panel Layer/Time Panel" method="_on_time_updated"]
+[connection signal="time_updated" from="gameplay/Time Manager" to="gameplay/Game Manager" method="_on_time_updated"]
 
 [editable path="scenery/side_top"]
 [editable path="scenery/side_top2"]

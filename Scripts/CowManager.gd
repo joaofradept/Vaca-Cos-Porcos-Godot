@@ -1,4 +1,5 @@
 extends Node
+class_name CowManager
 
 @export var chefe : Node
 @export var louca : Node
@@ -8,6 +9,7 @@ extends Node
 @export var endPlace : Node
 
 var cows = []
+var started
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -20,13 +22,19 @@ func _ready():
 	cows.append(louca)
 	cows.append(acores)
 	cows.append(acores)
-	await get_tree().create_timer(1.0).timeout
+	
+@rpc
+func start_cows():
+	started = true
 	_process_cows()
-	pass #chefe.start_move()
+	
+@rpc
+func stop_cows():
+	started = false
 	
 func _process_cows():
 	var rng = RandomNumberGenerator.new()
-	while true:
+	while started:
 		await get_tree().create_timer(.7).timeout
 		
 		var randomX = rng.randf_range(startPlace.position.x, endPlace.position.x)
@@ -45,8 +53,3 @@ func _process_cows():
 			var cow = cows[randomCow]
 			if !cow.visible:
 				cow.start_move(pos)
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
-	pass

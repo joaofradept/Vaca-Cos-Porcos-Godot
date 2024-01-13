@@ -1,11 +1,11 @@
 extends AUIScreenController_Panel
-class_name UIScreenController_PointsPanel
+class_name UIScreenController_TimePanel
 
-@export var pointsLabel: Label
+@export var timeLabel: Label
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
 
-func update_points(points):
-	pointsLabel.text = str(points)
+func _on_time_updated(currentTime):
+	timeLabel.text = str(currentTime)
