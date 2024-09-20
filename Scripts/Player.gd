@@ -5,6 +5,7 @@ class_name Player
 @export var speed = 1.0
 
 var _myPoints = 0
+var _hitCount = 0
 var _move_x: int = 1
 var _move_y: int = 2
 var _pressedKeys = []
@@ -40,6 +41,7 @@ func _input(event):
 
 @rpc
 func add_points(points):
+	_hitCount += 1
 	_myPoints += points
 	_myPoints = max(0, _myPoints)
 	emit_signal("points_updated", _myPoints)

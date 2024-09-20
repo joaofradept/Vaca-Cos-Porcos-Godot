@@ -6,7 +6,7 @@ func init(points, pos):
 	global_position = pos
 	
 	var colorDictionary = { -10: $Red, 1: $Brown, 2: $Yellow, 4: $Green }
-	print(points)
+	#print(points)
 	
 	for item in colorDictionary:
 		if item == points:
